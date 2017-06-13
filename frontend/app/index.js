@@ -94,7 +94,7 @@ class ApplyWindow extends React.Component {
 			/>
 			<TextInput
 				label="放置房间(格式:楼-号(门牌号四位,不够的前面补0,要不谁帮我写下这个正则)):"
-				placeholder="放置房间号,如学5-1234,科-607,教主-1122"
+				placeholder="放置房间号,如学5-0123,科-0607,教主-0123"
 				defaultValue=""
 				rounded="10"
 				width="20em"
