@@ -42,16 +42,31 @@ class ApplyWindow extends React.Component {
 			this.setState({info:"房间号格式有误!"});
 			return;
 		}
-		if (!isDomain(this.state.wantdomain1)) {
-			this.setState({info:"域名格式有误!"});
+		if (!isDomain(this.state.wantdomain1) && 
+		!(this.state.wantdomain1 == null || this.state.wantdomain1 == "")) {
+			this.setState({info:"域名1格式有误!"});
 			return;
 		}
-		if (!isDomain(this.state.wantdomain2)) {
-			this.setState({info:"域名格式有误!"});
+		if (!isDomain(this.state.wantdomain2) && 
+		!(this.state.wantdomain2 == null || this.state.wantdomain2 == "")) {
+			this.setState({info:"域名2格式有误!"});
 			return;
 		}
-		if (!isDomain(this.state.wantdomain3)) {
-			this.setState({info:"域名格式有误!"});
+		if (!isDomain(this.state.wantdomain3) && 
+		!(this.state.wantdomain3 == null || this.state.wantdomain3 == "")) {
+			this.setState({info:"域名3格式有误!"});
+			return;
+		}
+		if (this.state.name == null || this.state.name == "") {
+			this.setState({info:"姓名不可为空!"});
+			return;
+		}
+		if (this.state.school == null || this.state.school == "") {
+			this.setState({info:"学院不可为空!"});
+			return;
+		}
+		if (this.state.center == null || this.state.center == "") {
+			this.setState({info:"中心/教研室不可为空!"});
 			return;
 		}
 
@@ -94,7 +109,7 @@ class ApplyWindow extends React.Component {
 			<Label color="red">{this.state.info}</Label>
 			<TextInput
 				label="姓名:"
-				placeholder="申请人姓名..."
+				placeholder="申请人姓名...(必填)"
 				defaultValue=""
 				rounded="1em"
 				width="20em"
@@ -102,7 +117,7 @@ class ApplyWindow extends React.Component {
 			/>
 			<TextInput
 				label="学号:"
-				placeholder="申请人学号..."
+				placeholder="申请人学号...(必填)"
 				defaultValue=""
 				rounded="1em"
 				width="20em"
@@ -110,7 +125,7 @@ class ApplyWindow extends React.Component {
 			/>
 			<TextInput
 				label="放置房间(格式:楼-号(门牌号四位,不够的前面补0,要不谁帮我写下这个正则)):"
-				placeholder="放置房间号,如学5-0123,科-0607,教主-0123"
+				placeholder="放置房间号,如学5-0123,科-0607,教主-0123...(必填)"
 				defaultValue=""
 				rounded="1em"
 				width="20em"
@@ -118,7 +133,7 @@ class ApplyWindow extends React.Component {
 			/>
 			<TextInput
 				label="学院:"
-				placeholder="申请人所在学院..."
+				placeholder="申请人所在学院...(必填)"
 				defaultValue=""
 				rounded="1em"
 				width="20em"
@@ -126,7 +141,7 @@ class ApplyWindow extends React.Component {
 			/>
 			<TextInput
 				label="中心/教研室:"
-				placeholder="学生所在中心/教研室..."
+				placeholder="学生所在中心/教研室...(必填)"
 				defaultValue=""
 				rounded="1em"
 				width="20em"
@@ -142,7 +157,7 @@ class ApplyWindow extends React.Component {
 			/>
 			<TextInput
 				label="邮箱:"
-				placeholder="申请人邮箱..."
+				placeholder="申请人邮箱...(必填)"
 				defaultValue=""
 				rounded="1em"
 				width="20em"
@@ -150,7 +165,7 @@ class ApplyWindow extends React.Component {
 			/>
 			<TextInput
 				label="手机:"
-				placeholder="申请人手机号..."
+				placeholder="申请人手机号...(必填)"
 				defaultValue=""
 				rounded="1em"
 				width="20em"
