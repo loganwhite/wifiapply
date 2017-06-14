@@ -22,6 +22,7 @@ int main() {
             _exit(-1);
         }
     } else {
+        printf("%d\n",pid);
         return 0;
     }
 }

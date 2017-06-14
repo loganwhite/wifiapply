@@ -13,9 +13,13 @@ class ApplyWindow extends React.Component {
 			stuno:null,
 			room:null,
 			school:null,
+			center:null,
 			tuitor:null,
 			email:null,
-			mobile:null
+			mobile:null,
+			wantdomain1:null,
+			wantdomain2:null,
+			wantdomain3:null
 		}
 	}
 
@@ -36,6 +40,18 @@ class ApplyWindow extends React.Component {
 		}
 		if (!isRoomNum(this.state.room)) {
 			this.setState({info:"房间号格式有误!"});
+			return;
+		}
+		if (!isDomain(this.state.wantdomain1)) {
+			this.setState({info:"域名格式有误!"});
+			return;
+		}
+		if (!isDomain(this.state.wantdomain2)) {
+			this.setState({info:"域名格式有误!"});
+			return;
+		}
+		if (!isDomain(this.state.wantdomain3)) {
+			this.setState({info:"域名格式有误!"});
 			return;
 		}
 
@@ -62,7 +78,7 @@ class ApplyWindow extends React.Component {
 		return (
 		<Window
 			chrome
-			height="500px"
+			height="700px"
 			width="800px"
 			padding="10px"
 			verticalAlignment="center"
@@ -80,7 +96,7 @@ class ApplyWindow extends React.Component {
 				label="姓名:"
 				placeholder="申请人姓名..."
 				defaultValue=""
-				rounded="10"
+				rounded="1em"
 				width="20em"
 				onChange={e => this.setState({name:e.target.value})}
 			/>
@@ -88,7 +104,7 @@ class ApplyWindow extends React.Component {
 				label="学号:"
 				placeholder="申请人学号..."
 				defaultValue=""
-				rounded="10"
+				rounded="1em"
 				width="20em"
 				onChange={e => this.setState({stuno:e.target.value})}
 			/>
@@ -96,7 +112,7 @@ class ApplyWindow extends React.Component {
 				label="放置房间(格式:楼-号(门牌号四位,不够的前面补0,要不谁帮我写下这个正则)):"
 				placeholder="放置房间号,如学5-0123,科-0607,教主-0123"
 				defaultValue=""
-				rounded="10"
+				rounded="1em"
 				width="20em"
 				onChange={e => this.setState({room:e.target.value})}
 			/>
@@ -104,15 +120,23 @@ class ApplyWindow extends React.Component {
 				label="学院:"
 				placeholder="申请人所在学院..."
 				defaultValue=""
-				rounded="10"
+				rounded="1em"
 				width="20em"
 				onChange={e => this.setState({school:e.target.value})}
+			/>
+			<TextInput
+				label="中心/教研室:"
+				placeholder="学生所在中心/教研室..."
+				defaultValue=""
+				rounded="1em"
+				width="20em"
+				onChange={e => this.setState({center:e.target.value})}
 			/>
 			<TextInput
 				label="导师:"
 				placeholder="学生导师..."
 				defaultValue=""
-				rounded="10"
+				rounded="1em"
 				width="20em"
 				onChange={e => this.setState({tuitor:e.target.value})}
 			/>
@@ -120,7 +144,7 @@ class ApplyWindow extends React.Component {
 				label="邮箱:"
 				placeholder="申请人邮箱..."
 				defaultValue=""
-				rounded="10"
+				rounded="1em"
 				width="20em"
 				onChange={e => this.setState({email:e.target.value})}
 			/>
@@ -128,15 +152,38 @@ class ApplyWindow extends React.Component {
 				label="手机:"
 				placeholder="申请人手机号..."
 				defaultValue=""
-				rounded="10"
+				rounded="1em"
 				width="20em"
 				onChange={e => this.setState({mobile:e.target.value})}
+			/>
+			<TextInput
+				label="期待改善访问体验的服务域名:"
+				placeholder="域名,如www.g.cn..."
+				defaultValue=""
+				rounded="1em"
+				width="20em"
+				onChange={e => this.setState({wantdomain1:e.target.value})}
+			/>
+			<TextInput
+				placeholder="域名..."
+				defaultValue=""
+				rounded="1em"
+				width="20em"
+				onChange={e => this.setState({wantdomain2:e.target.value})}
+			/>
+			<TextInput
+				placeholder="域名..."
+				defaultValue=""
+				rounded="1em"
+				width="20em"
+				onChange={e => this.setState({wantdomain3:e.target.value})}
 			/>
 			<Button color="blue"
 				onClick={this.handleClick.bind(this)}
 				marginTop="20px">
 				提交
 			</Button>
+			<Label marginTop="50px"><a href="https://github.com/loganwhite/wifiapply">Logan Von</a></Label>
       		</View>
 			<TitleBar title="小黑WiFi路由器申请页面" controls/>
       	</Window>
@@ -164,4 +211,9 @@ function isStuno(str) {
 function isRoomNum(str) {
 	var reg = /^(学([12345689]|10|13|29))|(教([1-4]|主))|科-[0-9]{4}$/;
 	return reg.test(str);
+}
+
+function isDomain(str){
+       var reg = /^([a-zA-Z0-9_-])+\.([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+       return reg.test(str);
 }

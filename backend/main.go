@@ -38,9 +38,13 @@ func submitApply(w http.ResponseWriter, r *http.Request) {
 		stuno := r.FormValue("stuno")
 		room := r.FormValue("room")
 		department := r.FormValue("school")
+		center := r.FormValue("center")
 		tuitor := r.FormValue("tuitor")
 		email := r.FormValue("email")
 		mobile := r.FormValue("mobile")
+		wantdomain1 := r.FormValue("wantdomain1")
+		wantdomain2 := r.FormValue("wantdomain2")
+		wantdomain3 := r.FormValue("wantdomain3")
 
 		fmt.Print(mobile)
 
@@ -64,11 +68,11 @@ func submitApply(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		stmt, err := db.Prepare("INSERT t_apply SET name=?,stuno=?,room=?,department=?,tuitor=?,email=?,mobile=?,apply_time=?")
+		stmt, err := db.Prepare("INSERT t_apply SET name=?,stuno=?,room=?,department=?,center=?,tuitor=?,email=?,mobile=?,apply_time=?,wantdomain1=?,wantdomain2=?,wantdomain3=?")
 		checkErr(err)
 
 		applyTime := time.Now().Unix()
-		sqlRes, err := stmt.Exec(name, stuno, room, department, tuitor, email, mobile, applyTime)
+		sqlRes, err := stmt.Exec(name, stuno, room, department, center, tuitor, email, mobile, applyTime, wantdomain1, wantdomain2, wantdomain3)
 		checkErr(err)
 
 		affect, err := sqlRes.RowsAffected()
