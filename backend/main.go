@@ -34,6 +34,10 @@ type ApplyData struct {
 	IsDistributed bool   `json:"isdistributed"`
 }
 
+var dburl = ""
+var defaultusername = ""
+var defaultpassword = ""
+
 //indexpage show up the index page
 func indexPage(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("method:", r.Method) //获取请求的方法
@@ -70,7 +74,7 @@ func submitApply(w http.ResponseWriter, r *http.Request) {
 		wantdomain2 := r.FormValue("wantdomain2")
 		wantdomain3 := r.FormValue("wantdomain3")
 
-		db, err := sql.Open("mysql", "")
+		db, err := sql.Open("mysql", dburl)
 		checkErr(err)
 		defer db.Close()
 		defer func(ret *ResData, w http.ResponseWriter) {
@@ -126,7 +130,7 @@ func handleLogin(w http.ResponseWriter, r *http.Request) {
 			fmt.Fprint(w, string(b))
 		}(&res, w)
 
-		if username == "" && password == "" {
+		if username == defaultusername && password == defaultpassword {
 			res.IsSuccess = true
 			res.Msg = "登录成功"
 		} else {
@@ -141,7 +145,7 @@ func handleList(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		var res ResData
 
-		db, err := sql.Open("mysql", "")
+		db, err := sql.Open("mysql", dburl)
 		checkErr(err)
 
 		defer db.Close()
@@ -193,7 +197,7 @@ func handleDistribute(w http.ResponseWriter, r *http.Request) {
 
 		var res ResData
 
-		db, err := sql.Open("mysql", "")
+		db, err := sql.Open("mysql", dburl)
 		checkErr(err)
 
 		defer db.Close()
@@ -223,12 +227,17 @@ func handleDistribute(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func handleOutofstock(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprint(w, "没有库存了，请稍等几日!")
+}
+
 func main() {
 
 	fs := http.FileServer(http.Dir("./pages/static"))
 	http.Handle("/static/", http.StripPrefix("/static", fs))
 
 	http.HandleFunc("/", indexPage)
+	http.HandleFunc("/outofstock", handleOutofstock)
 	http.HandleFunc("/submit", submitApply)
 	http.HandleFunc("/manage", managePage)
 
